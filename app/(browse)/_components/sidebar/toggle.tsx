@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeftFromLineIcon, ArrowRightFromLineIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Hint } from "@/components/hint";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Toggle = () => {
     const { collapsed, onExpand, onCollapse } = useSidebar((state) => state);
@@ -41,6 +42,15 @@ export const Toggle = () => {
                     {collapsed ? <ArrowRightFromLineIcon className="h-4 w-4"/> : <ArrowLeftFromLineIcon className="h-4 w-4"/>}
                 </Button>
             </Hint>
+        </div>
+    )
+}
+
+export const ToggleSkeleton = () => {
+    return (
+        <div className="p-4 mb-2 hidden lg:flex items-center justify-between w-full">
+            <Skeleton className="h-6 w-[100px]"/>
+            <Skeleton className="h-6 w-6 rounded-md"/>
         </div>
     )
 }
