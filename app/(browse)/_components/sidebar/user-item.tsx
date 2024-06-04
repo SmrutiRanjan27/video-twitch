@@ -32,10 +32,10 @@ export const UserItem = ({
                 isActive && "bg-accent"
             )}
         >
-            <Link href={href}>
+            <Link href={href} className="w-full">
                 <div className={cn(
                     "flex items-center w-full gap-x-4",
-                    collapsed && "justify-center"
+                    collapsed ? "justify-center" : "justify-start"
                 )}>
                     <UserAvatar 
                         username={username}
