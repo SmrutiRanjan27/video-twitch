@@ -1,8 +1,8 @@
 "use client"
 
+import { onBlock, onUnblock } from "@/actions/block"
 import { onFollow, onUnFollow } from "@/actions/follow"
 import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
 import { useTransition } from "react"
 import { toast } from "sonner"
 
@@ -10,12 +10,14 @@ interface ActionsProps {
     selfId: string
     userId: string
     isFollowing: boolean
+    hasBlocked: boolean
 }
 
 export const Actions = ({
     selfId,
     userId,
     isFollowing,
+    hasBlocked,
 } : ActionsProps) => {
     const [isPending, startTransition] = useTransition();
     const isSelf = selfId === userId;
@@ -36,17 +38,43 @@ export const Actions = ({
         })
     }
 
+    const handleBlock = () => {
+        startTransition(() => {
+            onBlock(userId)
+                .then((data) => toast.success(`You blocked ${data.blocked.username}`))
+                .catch(() => "Something went wrong")
+        })
+    }
+
+    const handleUnblock = () => {
+        startTransition(() => {
+            onUnblock(userId)
+                .then((data) => toast.success(`You unblocked ${data.blocked.username}`))
+                .catch(() => "Something went wrong")
+        })
+    }
+
     return (
         <>
             {!isSelf && 
+            <div>
                 <Button
                     variant={isFollowing ? "secondary" : "primary"}
                     className="w-full"
                     onClick={isFollowing ? handleUnFollow : handleFollow}
-                    disabled={isPending}
+                    disabled={isPending || hasBlocked}
                 >
                     {isFollowing ? "Following" : "Follow"}
                 </Button>
+                <Button
+                    variant={hasBlocked ? "secondary" : "destructive"}
+                    className="w-full"
+                    onClick={hasBlocked ? handleUnblock : handleBlock}
+                    disabled={isPending}
+                >
+                    {hasBlocked ? "Unblock" : "Block"}
+                </Button>
+            </div>
             }
         </>
     )

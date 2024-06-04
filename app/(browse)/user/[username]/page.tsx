@@ -3,6 +3,7 @@ import { getUserByUsername } from "@/lib/user-service"
 import { notFound } from "next/navigation";
 import { Actions } from "./_components/actions";
 import { getSelf } from "@/lib/auth-service";
+import { hasBlockedUser, isBlockedByUser } from "@/lib/block-service";
 
 interface UserPageParams {
     params: {
@@ -18,7 +19,14 @@ const UserPage = async ({params} : UserPageParams) => {
         notFound();
     }
 
+    const isBlocked = await isBlockedByUser(user.id)
+
+    if (isBlocked) {
+        notFound();
+    }
+
     const isFollowing = await isFollowingUser(user.id);
+    const hasBlocked = await hasBlockedUser(user.id);
 
     return (
         <div>
@@ -29,6 +37,7 @@ const UserPage = async ({params} : UserPageParams) => {
                 selfId={self.id} 
                 userId={user.id}
                 isFollowing={isFollowing}
+                hasBlocked={hasBlocked}
             />
         </div>
     )
