@@ -49,7 +49,7 @@ export const NavItem = ({
 
 export const NavItemSkeleton = () => {
     return (
-        <li className="flex items-center gap-x-4 px-3 py-2">
+        <li className="flex items-center gap-x-4 px-2 py-2">
             <Skeleton className="min-h-[48px] min-w-[48px] rounded-md" />
             <div className="flex-1 hidden lg:block">
                 <Skeleton className=" h-[48px] w-full rounded-md" />
