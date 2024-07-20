@@ -2,14 +2,14 @@
 
 import { getSelf } from "@/lib/auth-service";
 import { db } from "@/lib/db";
-import { getStreamUserId } from "@/lib/stream-service";
+import { getStreamByUserId } from "@/lib/stream-service";
 import { Stream } from "@prisma/client"
 import { revalidatePath } from "next/cache";
 
 export const updateStream = async (values : Partial<Stream>) => {
     try {
         const self = await getSelf();
-        const selfStream = await getStreamUserId(self.id);
+        const selfStream = await getStreamByUserId(self.id);
         if (!selfStream) {
             throw new Error("Stream not found")
         }

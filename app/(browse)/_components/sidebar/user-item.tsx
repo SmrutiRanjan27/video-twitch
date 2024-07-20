@@ -41,6 +41,7 @@ export const UserItem = ({
                         username={username}
                         imageUrl={imageUrl}
                         isLive={isLive}
+                        showBadge={collapsed && isLive}
                     />
                     {!collapsed && 
                         <p className="truncate">
