@@ -17,7 +17,7 @@ export const onBlock = async (id: string) => {
 
         let blockDetails;
         try {
-            const blockDetails = await blockUser(id);
+            blockDetails = await blockUser(id);
         } catch {
             // This means user is a guest
         }

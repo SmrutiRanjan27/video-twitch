@@ -41,7 +41,7 @@ export const Actions = ({
     const handleBlock = () => {
         startTransition(() => {
             onBlock(userId)
-                .then((data) => toast.success(`You blocked ${data.blocked.username}`))
+                .then((data) => toast.success(`You blocked ${data?.blocked.username}`))
                 .catch(() => "Something went wrong")
         })
     }
