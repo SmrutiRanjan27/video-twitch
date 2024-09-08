@@ -59,12 +59,10 @@ export const ChatForm = ({
             className="flex flex-col items-center gap-y-4 p-3"
         >
             <div className="w-full">
-                {isDisabled && (
-                    <ChatInfo
-                        isDelayed={isDelayed}
-                        isFollowersOnly={isFollowersOnly}
-                    />
-                )}
+                <ChatInfo
+                    isDelayed={isDelayed}
+                    isFollowersOnly={isFollowersOnly}
+                />
                 <Input
                     onChange={(e) => onChange(e.target.value)}
                     value={value}
@@ -72,7 +70,7 @@ export const ChatForm = ({
                     placeholder="Send a message"
                     className={cn(
                         "border-white/10",
-                        isDisabled && "rounded-t-none border-t-0"
+                        (isFollowersOnly || isDelayed) && "rounded-t-none border-t-0"
                     )}
                 />
             </div>
